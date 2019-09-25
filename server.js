@@ -1,8 +1,22 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-const app = express();
+const mongoose = require("mongoose");
+require("./models/Task");
 const taskpull = require("./taskpull");
+
+const connectBeartasker = () => {
+  return mongoose.connect(`mongodb://localhost:27017/beartasker`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+};
+
+connectBeartasker().catch(e => console.error(e));
+
+console.log(taskpull());
+
+const app = express();
 
 app.use(express.static(path.join(__dirname, "build")));
 
