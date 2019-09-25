@@ -16,6 +16,8 @@ connectBeartasker().catch(e => console.error(e));
 
 const app = express();
 
+require("./routes/taskRoutes")(app);
+
 app.use(express.static(path.join(__dirname, "build")));
 
 app.get("/ping", function(req, res) {
