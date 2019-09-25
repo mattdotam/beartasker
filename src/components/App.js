@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Typography, withStyles } from "@material-ui/core";
+import { Container, Typography, withStyles } from "@material-ui/core";
 import styles from "../styles/AppStyles";
 import NavBar from "./NavBar";
+import TaskContainer from "./TaskContainer";
 
 class App extends Component {
   render() {
@@ -9,6 +10,9 @@ class App extends Component {
     return (
       <div>
         <NavBar />
+        <Container maxWidth="md">
+          <TaskContainer />
+        </Container>
       </div>
     );
   }
