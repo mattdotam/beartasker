@@ -9,6 +9,7 @@ const taskSchema = new Schema({
   due: Number,
   status: String,
   bids: Number,
+  myStatus: String,
 });
 
 mongoose.model("task", taskSchema);
