@@ -14,8 +14,6 @@ const connectBeartasker = () => {
 
 connectBeartasker().catch(e => console.error(e));
 
-console.log(taskpull());
-
 const app = express();
 
 app.use(express.static(path.join(__dirname, "build")));

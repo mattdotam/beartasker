@@ -6,7 +6,7 @@ const taskSchema = new Schema({
   budget: Number,
   id: String,
   url: String,
-  due: String,
+  due: Number,
   status: String,
   bids: Number,
 });
