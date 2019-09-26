@@ -6,6 +6,7 @@ const Task = mongoose.model("task");
 module.exports = app => {
   app.get("/api/refresh", (req, res) => {
     taskpull();
+    res.status(200).send();
   });
   app.get("/api/tasks", (req, res) => {
     Task.find({}).then(data => {

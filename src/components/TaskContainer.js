@@ -10,13 +10,24 @@ class TaskContainer extends Component {
     super(props);
     this.state = {
       tasks: [],
+      scrapeInterval: undefined,
     };
     this.refreshTasks = this.refreshTasks.bind(this);
     this.newTasks = this.newTasks.bind(this);
     this.rejectTask = this.rejectTask.bind(this);
+    this.scrape = this.scrape.bind(this);
   }
   componentDidMount() {
     this.refreshTasks();
+    var scrapeInterval = setInterval(this.scrape, 180000);
+    this.setState({ scrapeInterval });
+  }
+  componentWillUnmount() {
+    clearInterval(this.state.scrapeInterval);
+  }
+  scrape() {
+    this.refreshTasks();
+    axios.get("/api/refresh");
   }
   refreshTasks() {
     console.log("refreshing task");
