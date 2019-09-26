@@ -10,29 +10,25 @@ import {
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import styles from "../styles/LeadItemStyles";
+import { generateTextField } from "../utilities/FormHelpers";
 
-class TaskItem extends Component {
+class ProposalItem extends Component {
   render() {
     const { classes } = this.props;
     const {
-      leadStamp,
+      proposeStamp,
       name,
       due,
       bids,
-      budget,
+      hrsEstimate,
+      value,
       url,
     } = this.props.task;
     return (
       <TableRow>
         <TableCell>
           <Typography variant="body1" component="div">
-            {leadStamp === undefined
-              ? () => {
-                  console.log(this.props.task);
-                  this.props.newTasks(this.props.task);
-                  return `${new Date().toLocaleString()}`;
-                }
-              : `${new Date(leadStamp * 1000).toLocaleString()}`}
+            {`${new Date(proposeStamp * 1000).toLocaleString()}`}
           </Typography>
         </TableCell>
         <TableCell>
@@ -41,12 +37,39 @@ class TaskItem extends Component {
           </Typography>
         </TableCell>
         <TableCell>
+          {generateTextField({
+            margin: "dense",
+            width: 10,
+            prefix: "$",
+            value: value,
+            onChange: e =>
+              this.props.handleChange({
+                ...this.props.task,
+                index: this.props.index,
+              }),
+          })}
+        </TableCell>
+        <TableCell>
+          {generateTextField({
+            margin: "dense",
+            width: 12,
+            suffix: "hrs",
+            value: hrsEstimate,
+            onChange: e =>
+              this.props.handleChange({
+                ...this.props.task,
+                index: this.props.index,
+              }),
+          })}
+        </TableCell>
+        <TableCell>Rate</TableCell>
+        {/* <TableCell>
           <Typography variant="body1" component="div">
             {`$${budget
               .toString()
               .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
           </Typography>
-        </TableCell>
+        </TableCell> */}
         <TableCell>
           <Typography variant="body1" component="div">
             {`${bids}`}
@@ -64,10 +87,7 @@ class TaskItem extends Component {
                 className={classes.actionButton}
                 size="small"
                 variant="contained"
-                color="primary"
-                onClick={e =>
-                  this.props.proposeTask(this.props.task)
-                }>
+                color="primary">
                 <EditIcon />
               </Button>
             </Grid>
@@ -88,4 +108,4 @@ class TaskItem extends Component {
   }
 }
 
-export default withStyles(styles)(TaskItem);
+export default withStyles(styles)(ProposalItem);

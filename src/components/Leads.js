@@ -48,11 +48,12 @@ const Leads = props => {
           <TableBody>
             {props.tasks.length > 0 &&
               props.tasks.map(t => {
-                if (t.stage !== "reject") {
+                if (t.stage !== "reject" && t.stage !== "propose") {
                   return (
                     <LeadItem
                       key={t.id}
                       newTasks={props.newTasks}
+                      proposeTask={props.proposeTask}
                       rejectTask={props.rejectTask}
                       task={t}
                     />

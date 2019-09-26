@@ -3,6 +3,7 @@ import { Grid, withStyles } from "@material-ui/core";
 import styles from "../styles/TaskContainerStyles";
 import axios from "axios";
 import Leads from "./Leads";
+import Proposals from "./Proposals";
 import Rejects from "./Rejects";
 
 class TaskContainer extends Component {
@@ -14,8 +15,10 @@ class TaskContainer extends Component {
     };
     this.refreshTasks = this.refreshTasks.bind(this);
     this.newTasks = this.newTasks.bind(this);
+    this.proposeTask = this.proposeTask.bind(this);
     this.rejectTask = this.rejectTask.bind(this);
     this.scrape = this.scrape.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
     this.refreshTasks();
@@ -62,6 +65,24 @@ class TaskContainer extends Component {
     }
     axios.put("/api/tasks", { tasks: updated });
   }
+  proposeTask(task) {
+    const updated = [];
+    updated.push({
+      ...task,
+      stage: "propose",
+      proposeStamp: Math.floor(new Date().getTime() / 1000),
+    });
+    const index = this.state.tasks.map(t => t.id).indexOf(task.id);
+    this.setState(prevState => ({
+      tasks: [
+        ...prevState.tasks
+          .slice(0, index)
+          .concat(updated[0])
+          .concat(prevState.tasks.slice(index + 1)),
+      ],
+    }));
+    axios.put("/api/tasks", { tasks: updated });
+  }
   rejectTask(task) {
     const updated = [];
     updated.push({
@@ -78,6 +99,9 @@ class TaskContainer extends Component {
       axios.put("/api/tasks", { tasks: updated }),
     );
   }
+  handleChange(props) {
+    console.log(props);
+  }
   render() {
     return (
       <Grid direction="column" spacing={1} container>
@@ -85,7 +109,14 @@ class TaskContainer extends Component {
           <Leads
             {...this.state}
             newTasks={this.newTasks}
+            proposeTask={this.proposeTask}
             rejectTask={this.rejectTask}
+          />
+        </Grid>
+        <Grid item>
+          <Proposals
+            {...this.state}
+            handleChange={this.handleChange}
           />
         </Grid>
         <Grid item>
