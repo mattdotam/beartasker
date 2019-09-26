@@ -1,8 +1,18 @@
 import React, { Component } from "react";
-import { Grid, withStyles } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  TableSortLabel,
+  withStyles,
+} from "@material-ui/core";
 import styles from "../styles/TaskContainerStyles";
 import axios from "axios";
-import TaskItem from "./TaskItem";
+import Leads from "./Leads";
 
 class TaskContainer extends Component {
   constructor(props) {
@@ -10,19 +20,22 @@ class TaskContainer extends Component {
     this.state = {
       tasks: [],
     };
+    this.refreshTasks = this.refreshTasks.bind(this);
   }
   componentDidMount() {
+    this.refreshTasks();
+  }
+  refreshTasks() {
     axios.get("/api/tasks").then(res => {
       res.status === 200 && this.setState({ tasks: [...res.data] });
     });
   }
   render() {
     return (
-      <Grid direction="column" container>
-        {this.state.tasks.length > 0 &&
-          this.state.tasks.map(t => {
-            return <TaskItem {...t} />;
-          })}
+      <Grid direction="column" spacing={1} container>
+        <Grid item>
+          <Leads {...this.state} />
+        </Grid>
       </Grid>
     );
   }
