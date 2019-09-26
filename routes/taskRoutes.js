@@ -1,8 +1,13 @@
 const mongoose = require("mongoose");
+const taskpull = require("../taskpull");
 
 const Task = mongoose.model("task");
 
 module.exports = app => {
+  app.get("/api/refresh", (req, res) => {
+    console.log("running taskpull");
+    taskpull();
+  });
   app.get("/api/tasks", (req, res) => {
     Task.find({}).then(data => {
       let results = [];
@@ -14,11 +19,14 @@ module.exports = app => {
       res.status(200).send(results);
     });
   });
-  app.get("/api/tasks", (req, res) => {
-    const { id, myStatus } = req.body;
-    const task = { id, myStatus };
-    Task.updateOne({ id }, task, { upsert: true }).then(data => {
-      res.status(200).send(data);
+  app.put("/api/tasks", (req, res) => {
+    req.body.tasks.forEach(t => {
+      Task.updateOne({ id: t.id }, { ...t }, { upsert: true }).then(
+        data => {
+          console.log(data);
+        },
+      );
     });
+    res.status(200).send();
   });
 };

@@ -31,8 +31,8 @@ class Leads extends Component {
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell key="date">
-                  <TableSortLabel>Due</TableSortLabel>
+                <TableCell key="leadStamp">
+                  <TableSortLabel>Created</TableSortLabel>
                 </TableCell>
                 <TableCell>
                   <TableSortLabel>Opportunity</TableSortLabel>
@@ -42,6 +42,9 @@ class Leads extends Component {
                 </TableCell>
                 <TableCell>
                   <TableSortLabel>Bids</TableSortLabel>
+                </TableCell>
+                <TableCell key="dueDate">
+                  <TableSortLabel>Due</TableSortLabel>
                 </TableCell>
                 <TableCell>Action</TableCell>
               </TableRow>

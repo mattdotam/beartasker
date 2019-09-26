@@ -3,7 +3,6 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const mongoose = require("mongoose");
 require("./models/Task");
-const taskpull = require("./taskpull");
 
 const connectBeartasker = () => {
   return mongoose.connect(`mongodb://localhost:27017/beartasker`, {
@@ -15,6 +14,9 @@ const connectBeartasker = () => {
 connectBeartasker().catch(e => console.error(e));
 
 const app = express();
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 require("./routes/taskRoutes")(app);
 

@@ -15,7 +15,7 @@ class App extends Component {
     return (
       <div>
         <NavBar />
-        <Container maxWidth="md">
+        <Container maxWidth="lg">
           <Paper>
             <TaskContainer />
           </Paper>

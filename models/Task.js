@@ -7,9 +7,18 @@ const taskSchema = new Schema({
   id: String,
   url: String,
   due: Number,
-  status: String,
   bids: Number,
-  myStatus: String,
+  value: Number,
+  hrsEstimate: Number,
+  hrsActual: Number,
+  stage: String,
+  leadStamp: Number,
+  rejectStamp: Number,
+  proposeStamp: Number,
+  developStamp: Number,
+  deliverStamp: Number,
+  wonStamp: Number,
+  lostStamp: Number,
 });
 
 mongoose.model("task", taskSchema);

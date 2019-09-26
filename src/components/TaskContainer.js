@@ -21,14 +21,31 @@ class TaskContainer extends Component {
       tasks: [],
     };
     this.refreshTasks = this.refreshTasks.bind(this);
+    this.newTasks = this.newTasks.bind(this);
   }
   componentDidMount() {
     this.refreshTasks();
   }
   refreshTasks() {
+    console.log("refreshing task");
     axios.get("/api/tasks").then(res => {
-      res.status === 200 && this.setState({ tasks: [...res.data] });
+      res.status === 200 &&
+        this.setState({ tasks: [...res.data] }, () =>
+          this.newTasks(),
+        );
     });
+  }
+  newTasks() {
+    const updated = [];
+    this.state.tasks.map(t => {
+      if (t.leadStamp === undefined) {
+        updated.push({
+          ...t,
+          leadStamp: Math.floor(new Date().getTime() / 1000),
+        });
+      }
+    });
+    axios.put("/api/tasks", { tasks: updated });
   }
   render() {
     return (

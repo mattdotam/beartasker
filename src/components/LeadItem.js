@@ -13,12 +13,20 @@ import styles from "../styles/LeadItemStyles";
 
 class TaskItem extends Component {
   render() {
-    const { name, due, bids, budget, url, classes } = this.props;
+    const {
+      leadStamp,
+      name,
+      due,
+      bids,
+      budget,
+      url,
+      classes,
+    } = this.props;
     return (
       <TableRow>
         <TableCell>
           <Typography variant="body1" component="div">
-            {`${new Date(due * 1000).toLocaleDateString()}`}
+            {`${new Date(leadStamp * 1000).toLocaleString()}`}
           </Typography>
         </TableCell>
         <TableCell>
@@ -36,6 +44,11 @@ class TaskItem extends Component {
         <TableCell>
           <Typography variant="body1" component="div">
             {`${bids}`}
+          </Typography>
+        </TableCell>
+        <TableCell>
+          <Typography variant="body1" component="div">
+            {`${new Date(due * 1000).toLocaleDateString()}`}
           </Typography>
         </TableCell>
         <TableCell>
@@ -61,26 +74,6 @@ class TaskItem extends Component {
           </Grid>
         </TableCell>
       </TableRow>
-      // <Grid xs={12} item>
-      //   <Card style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
-      //     <Grid direction="row" justify="space-between" container>
-      //       <Grid item>
-      //         <Grid direction="row" spacing={1} container>
-      //           <Grid item>{`${bids} bids`}</Grid>
-      //           <Grid item>{`$${budget}`}</Grid>
-      //           <Grid item>
-      //             <Button
-      //               variant="contained"
-      //               color="secondary"
-      //               size="small">
-      //               Delete
-      //             </Button>
-      //           </Grid>
-      //         </Grid>
-      //       </Grid>
-      //     </Grid>
-      //   </Card>
-      // </Grid>
     );
   }
 }
