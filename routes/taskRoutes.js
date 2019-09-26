@@ -5,16 +5,15 @@ const Task = mongoose.model("task");
 
 module.exports = app => {
   app.get("/api/refresh", (req, res) => {
-    console.log("running taskpull");
     taskpull();
   });
   app.get("/api/tasks", (req, res) => {
     Task.find({}).then(data => {
       let results = [];
       data.forEach(r => {
-        if (r.myStatus !== "reject") {
-          results.push(r);
-        }
+        // if (r.stage !== "reject") {
+        results.push(r);
+        // }
       });
       res.status(200).send(results);
     });

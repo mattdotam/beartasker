@@ -11,11 +11,11 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import styles from "../styles/LeadItemStyles";
 
-class TaskItem extends Component {
+class RejectItem extends Component {
   render() {
     const { classes } = this.props;
     const {
-      leadStamp,
+      rejectStamp,
       name,
       due,
       bids,
@@ -26,13 +26,7 @@ class TaskItem extends Component {
       <TableRow>
         <TableCell>
           <Typography variant="body1" component="div">
-            {leadStamp === undefined
-              ? () => {
-                  console.log(this.props.task);
-                  this.props.newTasks(this.props.task);
-                  return `${new Date().toLocaleString()}`;
-                }
-              : `${new Date(leadStamp * 1000).toLocaleString()}`}
+            {`${new Date(rejectStamp * 1000).toLocaleString()}`}
           </Typography>
         </TableCell>
         <TableCell>
@@ -85,4 +79,4 @@ class TaskItem extends Component {
   }
 }
 
-export default withStyles(styles)(TaskItem);
+export default withStyles(styles)(RejectItem);
