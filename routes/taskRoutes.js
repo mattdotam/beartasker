@@ -12,9 +12,14 @@ module.exports = app => {
     Task.find({}).then(data => {
       let results = [];
       data.forEach(r => {
-        // if (r.stage !== "reject") {
-        results.push(r);
-        // }
+        let midnight = new Date().setHours(0, 0, 0, 0);
+        if (r.stage === "reject") {
+          if (r.rejectStamp >= Math.floor(midnight / 1000)) {
+            results.push(r);
+          }
+        } else {
+          results.push(r);
+        }
       });
       res.status(200).send(results);
     });
